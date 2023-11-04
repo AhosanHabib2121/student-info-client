@@ -30,7 +30,9 @@ const myCreateRouter = createBrowserRouter([
         path: "/studentUpdate/:id",
         element: <Update />,
         loader: ({params}) =>
-          fetch(`http://localhost:5000/studentInfo/${params.id}`),
+          fetch(
+            `https://student-info-server-bay.vercel.app/studentInfo/${params.id}`
+          ),
       },
       {
         path: "/login",
@@ -44,10 +46,10 @@ const myCreateRouter = createBrowserRouter([
         path: "/user",
         element: (
           <PrivateRoutes>
-            <User/>
+            <User />
           </PrivateRoutes>
         ),
-        loader: () => fetch("http://localhost:5000/users"),
+        loader: () => fetch("https://student-info-server-bay.vercel.app/users"),
       },
     ],
   },

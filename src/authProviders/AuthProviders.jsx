@@ -54,7 +54,7 @@ const AuthProviders = ({ children }) => {
 
         if (currentUser) {
           axios
-            .post("http://localhost:5000/api/createToken/jwt", loggedUser, {
+            .post("https://student-info-server-bay.vercel.app/api/createToken/jwt", loggedUser, {
               withCredentials: true,
             })
             .then(() => {
@@ -63,7 +63,7 @@ const AuthProviders = ({ children }) => {
         }
         else {
           axios
-            .post("http://localhost:5000/api/logOut", loggedUser, {
+            .post("https://student-info-server-bay.vercel.app/api/logOut", loggedUser, {
               withCredentials: true,
             })
             .then(() => {

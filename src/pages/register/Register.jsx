@@ -28,7 +28,7 @@ const Register = () => {
             password,
             createdAt,
           };
-          fetch("http://localhost:5000/users", {
+          fetch("https://student-info-server-bay.vercel.app/users", {
             method: "POST",
             headers: {"content-type": "application/json"},
             body: JSON.stringify(userData),

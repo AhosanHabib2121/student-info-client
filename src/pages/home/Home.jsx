@@ -21,7 +21,7 @@ const Home = () => {
       userEmail,
     };
 
-    fetch("http://localhost:5000/studentInfo", {
+    fetch("https://student-info-server-bay.vercel.app/studentInfo", {
       method: "POST",
       headers: {"content-type": "application/json"},
       body: JSON.stringify(studentInfo),

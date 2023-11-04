@@ -23,7 +23,7 @@ const Login = () => {
           password,
           lastLoginAt,
         };
-        fetch("http://localhost:5000/users", {
+        fetch("https://student-info-server-bay.vercel.app/users", {
           method: "PATCH",
           headers: {"content-type": "application/json"},
           body: JSON.stringify(userData),
@@ -46,7 +46,7 @@ const Login = () => {
                 icon: "success",
                 title: "Login successfully",
               });
-              navigate(location?.state? (location?.state ): '/' );
+              navigate(location?.state ? location?.state : "/");
             }
           });
       })

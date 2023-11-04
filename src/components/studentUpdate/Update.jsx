@@ -12,11 +12,14 @@ const Update = () => {
     const status = form.status.value;
     const studentInfo = {student_name, student_email, gender, status};
 
-    fetch(`http://localhost:5000/studentInfo/${studentData._id}`, {
-      method: "PUT",
-      headers: {"content-type": "application/json"},
-      body: JSON.stringify(studentInfo),
-    })
+    fetch(
+      `https://student-info-server-bay.vercel.app/studentInfo/${studentData._id}`,
+      {
+        method: "PUT",
+        headers: {"content-type": "application/json"},
+        body: JSON.stringify(studentInfo),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount === 1) {

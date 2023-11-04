@@ -44,7 +44,7 @@ const StudentData = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/studentInfo/${id}`, {
+        fetch(`https://student-info-server-bay.vercel.app/studentInfo/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -55,7 +55,7 @@ const StudentData = () => {
                 "Student information has been deleted.",
                 "success"
               );
-              refetch()
+              refetch();
             }
           });
       }
