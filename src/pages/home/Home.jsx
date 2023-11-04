@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../authProviders/AuthProviders";
 
 const Home = () => {
+    const { user } = useContext(AuthContext)
+    
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -8,7 +12,14 @@ const Home = () => {
     const student_email = form.student_email.value;
     const gender = form.gender.value;
     const status = form.status.value;
-    const studentInfo = {student_name, student_email, gender, status};
+    const userEmail = user?.email;
+    const studentInfo = {
+      student_name,
+      student_email,
+      gender,
+      status,
+      userEmail,
+    };
 
     fetch("http://localhost:5000/studentInfo", {
       method: "POST",

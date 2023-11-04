@@ -10,23 +10,28 @@ import {
 import app from "../firebaseConfig/Firebase.config";
 import axios from "axios";
 
+
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
 
 const AuthProviders = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // create account
-  const createAccount = (email, password) => {
+    const createAccount = (email, password) => {
+      setLoading(true)
     return createUserWithEmailAndPassword(auth, email, password);
   };
   // account login
-  const accountLogin = (email, password) => {
+    const accountLogin = (email, password) => {
+      setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   // update profile
     const profileUpdate = (name, photo_url) => {
+      setLoading(true);
         return updateProfile(auth.currentUser, {
         displayName: name,
         photoURL: photo_url,
@@ -35,42 +40,42 @@ const AuthProviders = ({ children }) => {
     
     // logOut
     const logOut = () => {
+        setLoading(true);
         return signOut(auth);
     }
 
 
     // onAuthStateChanged
     useEffect(() => {
-        const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-            const userEmail = currentUser?.email || user?.email;
-            const loggedUser = { email: userEmail }
+      const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser);
+        const userEmail = currentUser?.email || user?.email;
+        const loggedUser = {email: userEmail};
 
-            if (currentUser) {
-                axios.post("http://localhost:5000/api/createToken/jwt",
-                    loggedUser,
-                    {
-                      withCredentials: true,
-                    }
-                  )
-                  .then((res) => {
-                    console.log(res.data);
-                  });
-            } else {
-                axios
-                  .post("http://localhost:5000/api/logOut", loggedUser, {
-                    withCredentials: true,
-                  })
-                  .then((res) => {
-                    console.log(res.data);
-                  });
-            }
-            
-        });
-        return () => {
-            unSubscribe()
+        if (currentUser) {
+          axios
+            .post("http://localhost:5000/api/createToken/jwt", loggedUser, {
+              withCredentials: true,
+            })
+            .then(() => {
+              setLoading(false);
+            });
         }
-    },[])
+        else {
+          axios
+            .post("http://localhost:5000/api/logOut", loggedUser, {
+              withCredentials: true,
+            })
+            .then(() => {
+              setLoading(false);
+             
+            });
+        }
+      });
+      return () => {
+        unSubscribe();
+      };
+    }, []);
 
   const useInfo = {
     user,
@@ -78,6 +83,7 @@ const AuthProviders = ({ children }) => {
     profileUpdate,
     accountLogin,
     logOut,
+    loading,
   };
 
   return (

@@ -51,7 +51,7 @@ const Register = () => {
                   icon: "success",
                   title: "Account create successfully",
                 });
-                navigate("/user");
+                navigate("/");
               }
             });
         });

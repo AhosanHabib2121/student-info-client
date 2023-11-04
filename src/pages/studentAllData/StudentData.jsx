@@ -1,35 +1,35 @@
 import {Link} from "react-router-dom";
 import {AiFillDelete} from "react-icons/ai";
 import {BiSolidPencil} from "react-icons/bi";
-import {useContext, useEffect, useState} from "react";
+import {useContext} from "react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../axiosSecure/UseAxiosSecure";
 import { AuthContext } from "../../authProviders/AuthProviders";
 import { useQuery } from "@tanstack/react-query";
 
 const StudentData = () => {
-  const { user } = useContext(AuthContext);
+  const {user} = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
-
+ 
   const getStudentData = async () => {
-    const res = await axiosSecure.get(`/studentInfo?email=${user?.email}`);
-    return res;
+      const res = await axiosSecure.get(`/studentInfo?email=${user?.email}`);
+      return res;
   }
 
-  const {data:studentData, isLoading, isError, refetch} = useQuery({
+  const {data: studentData, isLoading,isError,refetch,} = useQuery({
     queryKey: ["studentData"],
     queryFn: getStudentData,
   });
-  console.log(studentData?.data);
 
+  // console.log(studentData?.data);
+
+  
   if (isLoading) {
     return <p className=" text-red-700 text-center">Loading........</p>
   }
   if (isError) {
     return <p className=" text-red-700 text-center">Something messing here (error)</p>;
   }
-
-
 
 
   // handleDelete

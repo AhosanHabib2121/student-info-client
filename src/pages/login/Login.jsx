@@ -1,11 +1,12 @@
 import {useContext} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import Swal from "sweetalert2";
 import {AuthContext} from "../../authProviders/AuthProviders";
 
 const Login = () => {
   const {accountLogin} = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -45,7 +46,7 @@ const Login = () => {
                 icon: "success",
                 title: "Login successfully",
               });
-              navigate("/");
+              navigate(location?.state? (location?.state ): '/' );
             }
           });
       })

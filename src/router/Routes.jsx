@@ -6,6 +6,8 @@ import Update from "../components/studentUpdate/Update";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 import User from "../pages/allUser/User";
+import PrivateRoutes from "./PrivateRoutes";
+
 
 const myCreateRouter = createBrowserRouter([
   {
@@ -18,7 +20,11 @@ const myCreateRouter = createBrowserRouter([
       },
       {
         path: "/studentData",
-        element: <StudentData />,
+        element: (
+          <PrivateRoutes>
+            <StudentData />
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/studentUpdate/:id",
@@ -36,7 +42,11 @@ const myCreateRouter = createBrowserRouter([
       },
       {
         path: "/user",
-        element: <User />,
+        element: (
+          <PrivateRoutes>
+            <User/>
+          </PrivateRoutes>
+        ),
         loader: () => fetch("http://localhost:5000/users"),
       },
     ],
